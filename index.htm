@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Share markers</title>
+        <link rel="stylesheet" href="css/bootstrap.css" />
+        <link rel="stylesheet" href="css/bootstrap-theme.css" />
+        <link rel="stylesheet" href="./leaflet.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="./leaflet.js"></script>
+        <script src="./share-markers.js"></script>
+        <style>
+            html, body {height: 100%; margin: 0;}
+            #search-results li {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            #search-results li:hover {
+                background-color: #f5f5f5;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="col-md-2">
+            <h1>Welcome</h1>
+            <p> You can either click on the map to add a marker or search for a location below.</p>
+            <p>
+                <form class="navbar-form" role="search" onSubmit="return searchPlace()">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" id="search-text">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onClick="searchPlace()">Go</button>
+                        </span>
+                    </div>
+                </form>
+            </p>
+            <p>
+                <ol id="search-results" class="list-group">
+                </ol>
+            </p>
+            <p>
+                Here you can copy the resulting JSON to insert into the HTML template and publish it yourself.
+                <pre id="json-content">
+                </pre>
+            </p>
+        </div>
+        <div id="map" class="col-md-10" style="height: 100%;"></div>
+        <script>
+var map = L.map('map')//.setView([51.505, -0.09], 13);
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1Ijoic2Vtb2FyIiwiYSI6ImZiNGRkMDRmOTczZWM3ZDRjMTc1NWMzZjcxNzg1MzdlIn0.5t96L3ReFgVi_i2mIFFcHw'
+}).addTo(map);
+
+var markerLayers = new L.FeatureGroup();
+map.addLayer(markerLayers);
+
+// Data source: title, latlng
+// Add your markers here:
+var markers = {'Stay1': [51.54147753, -0.20002842], 'Stay2': [51.53058625, -0.02613544]}
+
+drawMarkers();
+map.fitBounds(markerLayers.getBounds());
+
+map.on('click', function(e) {
+    addMarker('', e.latlng.lat, e.latlng.lng);
+});
+</script>
+</html>
+
