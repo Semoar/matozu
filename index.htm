@@ -62,7 +62,38 @@ map.addLayer(markerLayers);
 
 // Data source: title, latlng
 // Add your markers here:
-var markers = {'Stay1': [51.54147753, -0.20002842], 'Stay2': [51.53058625, -0.02613544]}
+var markers = {
+ "Big Ben": [
+  "51.5006617",
+  "-0.1245829"
+ ],
+ "Royal Albert Hall": [
+  "51.5009666",
+  "-0.177431194472985"
+ ],
+ "Britisches Museum": [
+  "51.5185241",
+  "-0.1257793"
+ ],
+ "Greenwich": [
+  "51.4820845",
+  "-0.0045417"
+ ],
+ "Tardis": [
+  "51.491811",
+  "-0.1930337"
+ ]
+}
+
+var markerStorageId = getParameterByName('id');
+if (markerStorageId != '') {
+    $.getJSON('data/' + markerStorageId, function(data) {
+        markers = data;
+        drawMarkers();
+        map.fitBounds(markerLayers.getBounds());
+    });
+}
+
 
 drawMarkers();
 map.fitBounds(markerLayers.getBounds());
