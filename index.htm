@@ -57,6 +57,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1Ijoic2Vtb2FyIiwiYSI6ImZiNGRkMDRmOTczZWM3ZDRjMTc1NWMzZjcxNzg1MzdlIn0.5t96L3ReFgVi_i2mIFFcHw'
 }).addTo(map);
 
+L.control.scale().addTo(map);
+
 var markerLayers = new L.FeatureGroup();
 map.addLayer(markerLayers);
 
