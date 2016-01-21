@@ -60,17 +60,19 @@ function drawMarkers() {
         marker.on('dragend', function(event) {
             m = event.target;
             markers[m.options.title] = [m.getLatLng()['lat'], m.getLatLng()['lng']];
-            document.getElementById('json-content').innerHTML = JSON.stringify(markers, null, ' ');
+            updateJSONDownloadLink(markers);
         });
         marker.bindPopup('<a href="./edit.htm?id=' + title + '">' + title + '</a>').openPopup();
         markerLayers.addLayer(marker);
     }
-    document.getElementById('json-content').innerHTML = JSON.stringify(markers, null, ' ');
+    // Also update the JSON for sharing
+    updateJSONDownloadLink(markers);
 }
 
-function showJSON() {
-    // ToDo: Either copy it to clipboard or generate JSON-file to download.
-    document.getElementById('json-content').style.display = "block";
+function updateJSONDownloadLink(markers) {
+    var json = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(markers, null, ' '));
+    document.getElementById('share-json').href = 'data:' + json;
+    document.getElementById('share-json').download = 'data.json';
 }
 
 function addMarker(title, lat, lon) {
