@@ -61,18 +61,24 @@ function drawMarkers() {
             m = event.target;
             markers[m.options.title] = [m.getLatLng()['lat'], m.getLatLng()['lng']];
             updateJSONDownloadLink(markers);
+            updateURLShareLink(markers);
         });
         marker.bindPopup('<a href="./edit.htm?id=' + title + '">' + title + '</a>').openPopup();
         markerLayers.addLayer(marker);
     }
     // Also update the JSON for sharing
     updateJSONDownloadLink(markers);
+    updateURLShareLink(markers);
 }
 
 function updateJSONDownloadLink(markers) {
     var json = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(markers, null, ' '));
     document.getElementById('share-json').href = 'data:' + json;
     document.getElementById('share-json').download = 'data.json';
+}
+function updateURLShareLink(markers) {
+    var json = encodeURIComponent(JSON.stringify(markers, null, ' '));
+    document.getElementById('share-url').href = 'index.htm?json=' + json;
 }
 
 function addMarker(title, lat, lon) {
