@@ -19,7 +19,7 @@ data directory.
 Simply clone this repository to a place which is served by a web server. Then
 access the index.htm, place some markers and save the resulting JSON into the
 data directory under a name you chose. Now you can display it under
-index.htm?id=<name-you-chose>.
+`index.htm?id=$(name-you-chose)`.
 
 
 # Used software & license
