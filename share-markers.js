@@ -21,7 +21,7 @@ function removeTempMarker() {
 function searchPlace() {
     var query = document.getElementById('search-text').value;
     var url = 'https://nominatim.openstreetmap.org/search?q=' + query + '&format=json';
-    var searchResultsHTML = document.getElementById('search-results');
+    var searchResultsHTML = document.getElementById('search-results-list');
     // clear previous search results
     searchResultsHTML.innerHTML = '';
     $.getJSON(url, function(data){
@@ -40,6 +40,13 @@ function searchPlace() {
             };
             li.onmouseout = removeTempMarker;
             searchResultsHTML.appendChild(li);
+        }
+        if (data.length == 0) {
+            document.getElementById('search-results').style.display = "none";
+            document.getElementById('search-no-results').style.display = "block";
+        } else {
+            document.getElementById('search-results').style.display = "block";
+            document.getElementById('search-no-results').style.display = "none";
         }
     });
     // Say form to not really submit the search form to the server.
@@ -61,8 +68,13 @@ function drawMarkers() {
     document.getElementById('json-content').innerHTML = JSON.stringify(markers, null, ' ');
 }
 
+function showJSON() {
+    // ToDo: Either copy it to clipboard or generate JSON-file to download.
+    document.getElementById('json-content').style.display = "block";
+}
+
 function addMarker(title, lat, lon) {
-    var title = prompt('Title of the note:', title);
+    var title = prompt('Please enter text for the marker or just accept the suggested text with enter:', title);
     if (title == null) {
         return;
     }
