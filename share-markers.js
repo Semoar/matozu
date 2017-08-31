@@ -63,7 +63,7 @@ function drawMarkers() {
             updateJSONDownloadLink(markers);
             updateURLShareLink(markers);
         });
-        marker.bindPopup('<a href="./edit.htm?id=' + title + '">' + title + '</a>').openPopup();
+        marker.bindPopup(title).openPopup();
         markerLayers.addLayer(marker);
     }
     // Also update the JSON for sharing
