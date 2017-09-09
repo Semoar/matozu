@@ -7,6 +7,7 @@ mato = Target, Marker + chizu = map (zu = image)
 # What it does
 
 This project makes it easy to place and name markers on a map.
+Try it in the demo on [matozu.simon-dreher.de](https://matozu.simon-dreher.de)!
 
 
 # Usage
